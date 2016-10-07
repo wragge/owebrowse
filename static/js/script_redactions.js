@@ -14,6 +14,8 @@ $(function() {
     var $item = $( event.currentTarget );
     var isExpanded = $item.hasClass('is-expanded');
     $item.toggleClass('is-expanded');
+    $('.redaction-caption', $item).toggle();
+    $('.page-thumb', $item).toggle();
     if ( isExpanded ) {
       // if shrinking, shiftLayout
       $grid.packery();

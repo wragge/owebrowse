@@ -136,7 +136,7 @@ def browse():
 @app.route('/redactions/')
 def redactions():
     db = get_db()
-    redactions = list(db.redactions.find({'random_sample': {'$near': [random.random(), 0]}, 'width': {'$lte': 500}}).limit(500))
+    redactions = list(db.redactions.find({'random_sample': {'$near': [random.random(), 0]}, 'width': {'$lte': 500}}).limit(250))
     return render_template('redactions.html', redactions=redactions)
 
 
