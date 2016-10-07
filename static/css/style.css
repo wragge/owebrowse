@@ -1,0 +1,151 @@
+@import 'https://fonts.googleapis.com/css?family=Special+Elite';
+
+.redaction {
+    margin-top: 1px;
+}
+
+.redaction-content {
+  -webkit-transition: width 0.2s, height 0.2s;
+          transition: width 0.2s, height 0.2s;
+}
+
+.redaction:hover .redaction-content {
+  cursor: pointer;
+}
+
+/* both item and item content change size */
+.redaction.is-expanded,
+.redaction.is-expanded .redaction-content {
+  width: 400px;
+  height: 240px;
+}
+
+.redaction.is-expanded {
+  z-index: 2;
+}
+
+.redaction.is-expanded .redaction-content {
+  background: #0C9;
+}
+
+.image-cell {
+    width: 200px;
+    margin-top: 20px;
+}
+
+.item-heading {
+    margin-top: 20px;
+    background-color: #B7DCF7;
+    display: inline-block;
+    height: 200px;
+    color: #333333;
+    line-height: 200px;
+    font-size: 200%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+a.item-heading:hover {
+    opacity: 0.8;
+    color: #333333;
+    text-decoration: none;
+}
+
+.page-header { border-bottom: none;}
+
+body {
+    background:  #ededed;  
+}
+
+header {
+    font-weight: lighter;
+    color: #333333;
+}
+
+header a, header a:hover {
+    color: #333333;
+}
+
+.dark {
+    background: #222222;
+    padding-bottom: 40px;
+    padding-top: 10px;
+}
+.arrows {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+footer {
+    font-weight: lighter;
+    color: #333333;
+    height: 300px;
+}
+
+.menubar {
+    padding-top: 10px;
+    background: #222222;
+    color: #ffffff;
+}
+.placeholders {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.circle-text {
+    display: inline-block;
+    font-size: 40px;
+    line-height: 160px;
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    background: #B7DCF7;
+    color: #333333;
+}
+
+a.circle-text:hover {
+    opacity: 0.8;
+    color: #333333;
+    text-decoration: none;
+}
+
+.stamp {
+    margin-top: 1px;
+  position: absolute;
+  background: #FBFBFF;
+  height: 250px;
+  width: 400px;
+  left: 240px;
+  top: 180px;
+  color: #222222;
+  font-family: 'Special Elite', cursive;
+  padding: 10px;
+}
+
+.stamp h1 {
+    font-family: 'Special Elite', cursive;
+    margin-top: 0;
+}
+
+.redacted, .redacted {
+    background: #222222;
+    padding: 4px;
+    color: #222222;
+}
+
+.redacted:hover {
+    text-decoration: none;
+}

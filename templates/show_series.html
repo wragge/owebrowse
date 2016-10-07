@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<h2>NAA: {{ series }}</h2>
+
+<p class="lead">Last time we harvested them, there were&hellip;</p>
+
+<div class="row placeholders">
+    <div class="col-sm-4 placeholder">
+      <div class="circle-text">{{ items }}</div> 
+      <h4>items on RecordSearch</h4>
+    </div>
+    <div class="col-sm-4 placeholder">
+      <a href="/browse/?series={{series}}" class="circle-text">{{ digitised }}</a>
+      <h4>files digitised</h4>
+    </div>
+    <div class="col-sm-4 placeholder">
+      <a href="/series/{{series|replace('/', '-')}}/browse/" class="circle-text">{{ images }}</a>
+      <h4>page images</h4>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

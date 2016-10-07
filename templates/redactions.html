@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div id="redactions">
+        <div class="stamp">
+            <h1>redacted:</h1>
+            <p>acts of erasure, censorship, and control extracted from <a href="https://github.com/wragge/asio-files" class="redacted">ASIO files</a> held by the <a href="http://naa.gov.au" class="redacted">National Archives of Australia</a></p>
+            <p>here the voids become <a href="http://timsherratt.org/research-notebook/projects/immigration-recordkeeping-and-surveillance/" class="redacted">windows</a> on the practice of state surveillance</p>
+            <p>created by <a class="redacted" href="https://timsherratt.org">Tim Sherratt</a></p>
+        </div>
+    {% for redaction in redactions %}
+        <div class="redaction"><div class="redaction-content"><img src="https://s3.amazonaws.com/asiofiles/redactions/{{redaction.image}}" width="{{(redaction.width/10)|round(0, 'floor')|int * 10}}"></div></div>
+    {% endfor %}
+    </div>
+    <div id="pagination">
+        <a href="/redactions/?page={{page}}&number=100" class="next">next</a>
+    </div>
+    <div class="listing">
+    </div>
+
+</div>
+{% endblock %}
+{% block extrascripts %}
+    <script src="/static/js/jquery-ias.min.js"></script>
+    <script src="/static/js/packery.pkgd.min.js"></script>
+    <script src="/static/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/static/js/script_redactions.js?1"></script>
+{% endblock %}
