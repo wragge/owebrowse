@@ -25,6 +25,12 @@ $(function() {
     }
   });
 
+  $('.page-thumb a').click(function() {
+    event.preventDefault();
+    window.open($(this).attr('href'), name='_blank');
+    event.stopImmediatePropagation();
+  });
+
 //
 //  var ias = $.ias({
 //    container: "#redactions",
