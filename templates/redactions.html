@@ -9,11 +9,13 @@
                 <p>here voids become <a href="http://timsherratt.org/research-notebook/projects/immigration-recordkeeping-and-surveillance/" class="redacted">windows</a> on the practice of state surveillance</p>
                 {% if page %}
                     <div class="pull-right">
-                        <small class="text-muted">{{((page - 1) * number) + 1}} to {{page * number}} of {{total}}</small> 
+                        <small class="text-muted">{% if total > (page * number) %}{{((page - 1) * number) + 1}} to {{page * number}} of {% endif %}{{total}}{% if tag %} tagged &lsquo;{{tag}}&rsquo;{% endif %}</small> 
                         {% if page > 1 %}
-                            <a class="text-muted" href="/redactions/{{page - 1}}/" class="next"><i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i></a>
+                            <a class="text-muted" href="/redactions/browse/{{page - 1}}/" class="next"><i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i></a>
                         {% endif %}
-                        <a class="text-muted" href="/redactions/{{page + 1}}/" class="next"><i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i></a>
+                        {% if total > (page * number) %}
+                            <a class="text-muted" href="/redactions/browse/{{page + 1}}/" class="next"><i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i></a>
+                        {% endif %}
                     </div>
                 {% else %}
                     <div class="pull-right">
@@ -23,7 +25,19 @@
 
             </div>
         {% for redaction in redactions %}
-            <div class="redaction" data-series="{{redaction.series}}" data-control="{{redaction.control_symbol}}"><div class="redaction-content"><div class="page-thumb pull-right"><a class="text-muted" title="Open page {{redaction.page}} of NAA: {{redaction.series}}, {{redaction.control_symbol}}" href="/items/{{redaction.barcode}}/pages/{{redaction.page}}/"><i class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i></a> <a title="Open page {{redaction.page}} of NAA: {{redaction.series}}, {{redaction.control_symbol}}" href="/items/{{redaction.barcode}}/pages/{{redaction.page}}/"><img src="https://s3.amazonaws.com/asiofiles{{redaction.page_image_url|replace(']/', ']/thumbs/')|replace('.jpg', '-200.jpg')}}"></a></div><img src="https://s3.amazonaws.com/asiofiles/redactions/{{redaction.image}}" width="{{(redaction.width/10)|round(0, 'floor')|int * 10}}"><div class="redaction-caption"><p>NAA: {{redaction.series}}, {{redaction.control_symbol}}<br>Page: {{redaction.page}}</p></div></div></div>
+            <div class="redaction" data-series="{{redaction.series}}" data-control="{{redaction.control_symbol}}">
+                <div class="redaction-content">
+                    <div class="page-thumb pull-right"><a class="text-muted" title="Open page {{redaction.page}} of NAA: {{redaction.series}}, {{redaction.control_symbol}}" href="/items/{{redaction.barcode}}/pages/{{redaction.page}}/"><i class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i></a> <a title="Open page {{redaction.page}} of NAA: {{redaction.series}}, {{redaction.control_symbol}}" href="/items/{{redaction.barcode}}/pages/{{redaction.page}}/"><img src="https://s3.amazonaws.com/asiofiles{{redaction.page_image_url|replace(']/', ']/thumbs/')|replace('.jpg', '-200.jpg')}}"></a></div>
+                    <img src="https://s3.amazonaws.com/asiofiles/redactions/{{redaction.image}}" width="{{(redaction.width/10)|round(0, 'floor')|int * 10}}">
+                    <div class="redaction-caption">
+                        <p>
+                            NAA: {{redaction.series}}, {{redaction.control_symbol}}<br>
+                            Page: {{redaction.page}}<br>
+                            {% if redaction.tags %}Tags:{% for tag in redaction.tags %} <a href="/redactions/tags/{{tag}}/">{{tag}}</a>{% endfor %}{% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
         </div>
     </div>

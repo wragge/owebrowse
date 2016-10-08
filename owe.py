@@ -24,8 +24,9 @@ def home():
     ]
     series = len(list(db.items.aggregate(pipeline)))
     items = db.items.find({'digitised_status': True}).count()
-    images = db.images.find().count()
-    return render_template('home.html', series=series, items=items, images=images)
+    images = db.images.count()
+    redactions = db.redactions.count()
+    return render_template('home.html', series=series, items=items, images=images, redactions=redactions)
 
 
 @app.route('/series/')
@@ -137,16 +138,17 @@ def browse():
 def redactions():
     db = get_db()
     number = int(request.args.get('number', 200))
-    redactions = list(db.redactions.find({'random_sample': {'$near': [random.random(), 0]}, 'width': {'$lte': 500}}).limit(number))
+    redactions = list(db.redactions.find({'random_sample': {'$near': [random.random(), 0]}, 'width': {'$lte': 480}}).limit(number))
     total = db.redactions.count()
     return render_template('redactions.html', redactions=redactions, total=total)
 
 
-@app.route('/redactions/<page>/')
-def list_redactions(page):
+@app.route('/redactions/browse/')
+@app.route('/redactions/browse/<page>/')
+def list_redactions(page=1):
     page = int(page)
     number = int(request.args.get('number', 100))
-    sort = request.args.get('sort', 'random_id')
+    sort = request.args.get('sort', 'barcode')
     start = (page - 1) * number
     db = get_db()
     redactions = list(db.redactions.find().sort(sort).skip(start).limit(number))
@@ -154,15 +156,42 @@ def list_redactions(page):
     return render_template('redactions.html', redactions=redactions, page=page, number=number, total=total)
 
 
-@app.route('/redactions/browse/')
-def browse_redactions(page):
+@app.route('/redactions/tags/<tag>/')
+@app.route('/redactions/tags/<tag>/<page>/')
+def list_redactions_tags(tag, page=1):
     page = int(page)
-    number = int(request.args.get('number', 200))
-    sort = request.args.get('sort', 'random_id')
+    number = int(request.args.get('number', 100))
+    sort = request.args.get('sort', 'barcode')
     start = (page - 1) * number
     db = get_db()
-    redactions = list(db.redactions.find().sort(sort).skip(start).limit(number))
-    return render_template('redactions.html', redactions=redactions, page=page)
+    redactions = list(db.redactions.find({'tags': tag}).sort(sort).skip(start).limit(number))
+    total = db.redactions.find({'tags': tag}).count()
+    return render_template('redactions.html', redactions=redactions, page=page, number=number, total=total, tag=tag)
+
+
+@app.route('/redactions/explore/')
+def browse_redactions():
+    db = get_db()
+    redactions = db.redactions.count()
+    pipeline = [
+        {
+            '$group': {
+                '_id': {'barcode': '$barcode', 'page': '$page'}
+            }
+
+        }
+    ]
+    pages = len(list(db.redactions.aggregate(pipeline)))
+    pipeline = [
+        {
+            '$group': {
+                '_id': {'barcode': '$barcode'}
+            }
+
+        }
+    ]
+    items = len(list(db.redactions.aggregate(pipeline)))
+    return render_template('redactions_explore.html', redactions=redactions, pages=pages, items=items)
 
 
 if __name__ == '__main__':

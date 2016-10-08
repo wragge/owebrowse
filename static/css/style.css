@@ -57,6 +57,11 @@
     margin-top: 20px;
 }
 
+.image-cell img {
+    display:block;
+    margin:auto;
+}
+
 .item-heading {
     margin-top: 20px;
     background-color: #B7DCF7;

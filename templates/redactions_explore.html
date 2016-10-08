@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    {% include "header.html" %}
+    <div class="container-fluid"> 
+        <h2>Redactions</h2>
+        <p class="lead">So far we've found&hellip;</p>
+
+        <div class="row placeholders">
+            <div class="col-sm-4 placeholder">
+              <a href="/series/" class="circle-text">{{ redactions }}</a> 
+              <h4>redactions</h4>
+            </div>
+            <div class="col-sm-4 placeholder">
+              <div class="circle-text">{{ pages }}</div>
+              <h4>pages with redactions</h4>
+            </div>
+            <div class="col-sm-4 placeholder">
+              <div class="circle-text">{{ items }}</div>
+              <h4>files with redactions</h4>
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+{% endblock %}

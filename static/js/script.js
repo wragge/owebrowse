@@ -1,6 +1,6 @@
 $(function() {
 
-var $grid = $('.images').packery({
+var $grid = $('.images').isotope({
     "layoutMode": 'fitRows',
     "itemSelector": ".image-cell",
     "sortBy" : "original-order",
@@ -8,7 +8,7 @@ var $grid = $('.images').packery({
 });
 // layout Isotope after each image loads
 $grid.imagesLoaded().progress( function() {
-  $grid.packery('layout');
+  $grid.isotope('layout');
 });
 
     $("body").keydown(function(e){
