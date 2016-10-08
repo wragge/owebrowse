@@ -136,20 +136,33 @@ def browse():
 @app.route('/redactions/')
 def redactions():
     db = get_db()
-    redactions = list(db.redactions.find({'random_sample': {'$near': [random.random(), 0]}, 'width': {'$lte': 500}}).limit(250))
-    return render_template('redactions.html', redactions=redactions)
-
-
-@app.route('/redactions/<page>')
-def browse_redactions():
-    page = int(request.args.get('page', 1))
     number = int(request.args.get('number', 200))
-    start = (page - 1) * number
-    page += 1
-    db = get_db()
-    redactions = list(db.redactions.find({'width': {'$lte': 500}}).sort('random_id').skip(start).limit(number))
-    return render_template('redactions.html', redactions=redactions, page=page)
+    redactions = list(db.redactions.find({'random_sample': {'$near': [random.random(), 0]}, 'width': {'$lte': 500}}).limit(number))
+    total = db.redactions.count()
+    return render_template('redactions.html', redactions=redactions, total=total)
 
+
+@app.route('/redactions/<page>/')
+def list_redactions(page):
+    page = int(page)
+    number = int(request.args.get('number', 100))
+    sort = request.args.get('sort', 'random_id')
+    start = (page - 1) * number
+    db = get_db()
+    redactions = list(db.redactions.find().sort(sort).skip(start).limit(number))
+    total = db.redactions.count()
+    return render_template('redactions.html', redactions=redactions, page=page, number=number, total=total)
+
+
+@app.route('/redactions/browse/')
+def browse_redactions(page):
+    page = int(page)
+    number = int(request.args.get('number', 200))
+    sort = request.args.get('sort', 'random_id')
+    start = (page - 1) * number
+    db = get_db()
+    redactions = list(db.redactions.find().sort(sort).skip(start).limit(number))
+    return render_template('redactions.html', redactions=redactions, page=page)
 
 
 if __name__ == '__main__':

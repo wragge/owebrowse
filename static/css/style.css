@@ -77,9 +77,6 @@ a.item-heading:hover {
 
 .page-header { border-bottom: none;}
 
-body {
-    background:  #ededed;  
-}
 
 header {
     font-weight: lighter;
@@ -100,9 +97,7 @@ header a, header a:hover {
     margin-top: 10px;
 }
 footer {
-    font-weight: lighter;
-    color: #333333;
-    height: 300px;
+
 }
 
 .menubar {
@@ -173,4 +168,5 @@ a.circle-text:hover {
 
 .redacted:hover {
     text-decoration: none;
+    color: #0ce3ac;
 }
