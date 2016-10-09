@@ -32,9 +32,9 @@
                     <div class="redaction-caption">
                         <p>
                             <u>NAA</u>: {{redaction.series}}, {{redaction.control_symbol}}<br>
-                            <u>Title</u>: {{redaction.title}}</p>
-                            <p><u>Page</u>: {{redaction.page}}<br>
-                            {% if redaction.tags %}<u>Tags</u>:{% for tag in redaction.tags %} <a href="/redactions/tags/{{tag}}/">{{tag}}</a>{% endfor %}{% endif %}
+                            <u>Title</u>: {{redaction.title}}<br>
+                            <u>Page</u>: {{redaction.page}}<br>
+                            {% if redaction.tags %}<u>Tags</u>:{% for tag in redaction.tags %} <a class="label label-primary" href="/redactions/tags/{{tag}}/">{{tag}}</a>{% endfor %}{% endif %}
                         </p>
                     </div>
                 </div>
