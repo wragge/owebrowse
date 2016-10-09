@@ -31,9 +31,10 @@
                     <img src="https://s3.amazonaws.com/asiofiles/redactions/{{redaction.image}}" width="{{(redaction.width/10)|round(0, 'floor')|int * 10}}">
                     <div class="redaction-caption">
                         <p>
-                            NAA: {{redaction.series}}, {{redaction.control_symbol}}<br>
-                            Page: {{redaction.page}}<br>
-                            {% if redaction.tags %}Tags:{% for tag in redaction.tags %} <a href="/redactions/tags/{{tag}}/">{{tag}}</a>{% endfor %}{% endif %}
+                            <u>NAA</u>: {{redaction.series}}, {{redaction.control_symbol}}<br>
+                            <u>Title</u>: {{redaction.title}}</p>
+                            <p><u>Page</u>: {{redaction.page}}<br>
+                            {% if redaction.tags %}<u>Tags</u>:{% for tag in redaction.tags %} <a href="/redactions/tags/{{tag}}/">{{tag}}</a>{% endfor %}{% endif %}
                         </p>
                     </div>
                 </div>
