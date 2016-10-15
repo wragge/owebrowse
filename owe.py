@@ -233,7 +233,7 @@ def item_redactions(barcode):
         {'$group': {'_id': '$identifier', 'total': {'$sum': '$redacted.total'}, 'area': {'$sum': '$redacted.area'}, 'percentage': {'$sum': '$redacted.percentage'}, 'pages': {'$sum': 1}}},
         {'$project': {'_id': 0, 'barcode': '$_id', 'total': 1, 'area': 1, 'percentage': {'$divide': ['$percentage', '$pages']}, 'pages': 1}}
     ]
-    item = list(db.images.aggregate(pipeline))
+    item = list(db.images.aggregate(pipeline))[0]
     print item
     try:
         return jsonify(item)
