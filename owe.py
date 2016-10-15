@@ -1,9 +1,10 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from bson.son import SON
 from flask_paginate import Pagination
 import random
+
 
 MONGOLAB_URL = os.environ['MONGOLAB_URL']
 
@@ -192,6 +193,52 @@ def browse_redactions():
     ]
     items = len(list(db.redactions.aggregate(pipeline)))
     return render_template('redactions_explore.html', redactions=redactions, pages=pages, items=items)
+
+
+@app.route('/redactions/total/')
+def highest_total_redactions():
+    sort = request.args.get('sort', 'total')
+    db = get_db()
+    pipeline = [
+        # {'$match': {'redacted': {'$exists': True}}},
+        {'$group': {'_id': {'barcode': '$identifier', 'series': '$series', 'control_symbol': '$control_symbol'}, 'total': {'$sum': '$redacted.total'}, 'pages': {'$sum': 1}}},
+        {'$project': {'_id': 1, 'total': 1, 'pages': 1, 'average': {'$divide': ['$total', '$pages']}}},
+        {'$sort': {sort: -1}},
+        {'$limit': 100}
+    ]
+    items = db.images.aggregate(pipeline)
+    return render_template('list_redacted_total.html', items=items, sort=sort)
+
+
+@app.route('/redactions/area/')
+def highest_area_redactions():
+    sort = request.args.get('sort', 'total')
+    db = get_db()
+    pipeline = [
+        # {'$match': {'redacted': {'$exists': True}}},
+        {'$group': {'_id': {'barcode': '$identifier', 'series': '$series', 'control_symbol': '$control_symbol'}, 'total': {'$sum': '$redacted.area'}, 'pages': {'$sum': 1}}},
+        {'$project': {'_id': 1, 'total': 1, 'pages': 1, 'average': {'$divide': ['$total', '$pages']}}},
+        {'$sort': {sort: -1}},
+        {'$limit': 100}
+    ]
+    items = db.images.aggregate(pipeline)
+    return render_template('list_redacted_area.html', items=items, sort=sort)
+
+
+@app.route('/items/<barcode>/redactions/')
+def item_redactions(barcode):
+    db = get_db()
+    pipeline = [
+        {'$match': {'identifier': barcode}},
+        {'$group': {'_id': '$identifier', 'total': {'$sum': '$redacted.total'}, 'area': {'$sum': '$redacted.area'}, 'percentage': {'$sum': '$redacted.percentage'}, 'pages': {'$sum': 1}}},
+        {'$project': {'_id': 0, 'barcode': '$_id', 'total': 1, 'area': 1, 'percentage': {'$divide': ['$percentage', '$pages']}, 'pages': 1}}
+    ]
+    item = list(db.images.aggregate(pipeline))
+    print item
+    try:
+        return jsonify(item)
+    except TypeError:
+        return jsonify({})
 
 
 if __name__ == '__main__':

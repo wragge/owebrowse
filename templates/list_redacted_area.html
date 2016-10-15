@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include "header.html" %}
+    <div class="container-fluid"> 
+        <h2>Most redacted files <small>by {{sort}} area</small></h2>
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="list-group">
+                {% for item in items %}
+                    <li class="list-group-item">
+                        {% if sort == 'total' %}
+                            <span class="badge">{{ '%0.2f' | format(item.average) }} pixels per page</span>
+                            <span class="badge">{{ item.total }} pixels</span>
+                        {% else %}
+                            <span class="badge">{{ item.total }} pixels</span>
+                            <span class="badge">{{ '%0.2f' | format(item.average) }} pixels per page</span>
+                        {% endif %}
+                    <a href="/items/{{item._id.barcode}}/">{{item._id.series}}, {{item._id.control_symbol}}</a>
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+{% endblock %}
