@@ -141,8 +141,8 @@ footer {
     border-radius: 50%;
     text-align: center;
     vertical-align: middle;
-    background: #0ce3ac;
-    color: #333333;
+    background: #375A7F;
+    color: #ffffff;
 }
 
 a.circle-text:hover {
@@ -179,5 +179,10 @@ a.circle-text:hover {
 .redacted:hover {
     text-decoration: none;
     color: #0ce3ac;
+}
+
+.totals {
+    margin-bottom: 20px;
+
 }
 

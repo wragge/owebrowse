@@ -3,7 +3,7 @@
     {% include "header.html" %}
     <div class="container-fluid"> 
         <h2>Redactions</h2>
-        <p class="lead">So far we've found&hellip;</p>
+        <p class="lead">I've been searching page images for redactions. So far I've found&hellip;</p>
 
         <div class="row placeholders">
             <div class="col-sm-4 placeholder">
@@ -20,12 +20,15 @@
             </div>
         </div>
 
+        <h3>Things to explore</h3>
         <ul>
           <li><a href="/redactions/">Poke around in a random sample of redactions</a></li>
           <li><a href="/redactions/browse/">Browse the complete set of redactions</a></li>
           <li><a href="/redactions/tags/art/">Enjoy our collection of redaction art</a></li>
+          <li>Examine the files with the most redactions: <a href="/redactions/total/">total</a> &middot; <a href="/redactions/total/?sort=average">average per page</a></li>
+          <li>And the files with the greatest area redacted: <a href="/redactions/area/">total</a> &middot; <a href="/redactions/area/?sort=average">average per page</a></li>
 
         </ul>
     </div>
-    {% include "footer_redactions.html" %}
+    {% include "footer.html" %}
 {% endblock %}

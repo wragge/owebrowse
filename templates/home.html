@@ -2,8 +2,10 @@
 {% block content %}
     {% include "header.html" %}
     <div class="container-fluid"> 
-        <h2>Overview</h2>
-        <p class="lead">So far we've harvested&hellip;</p>
+        <h1 class="page-header">OWE <small>Open with Exception</small></h1>
+        <p class="lead">This is an experimental site for exploring ASIO files <a href="https://github.com/wragge/asio-files">harvested</a> from the National Archives of Australia.</p>
+
+        <p class="lead">So far I've harvested&hellip;</p>
 
         <div class="row placeholders">
             <div class="col-sm-3 placeholder">
@@ -22,6 +24,11 @@
               <a class="circle-text" href="/redactions/">{{ redactions }}</a>
               <h4>redactions</h4>
             </div>
+        </div>
+
+        <div class="alert alert-danger">
+          <h4>Be warned!</h4>
+          <p>This is part of an <a class="alert-link" href="http://timsherratt.org/research-notebook/projects/immigration-recordkeeping-and-surveillance/">ongoing research project</a> and is likely to change at any time. In particular, I'm still working on my technique for the identification of redactions so there will be errors!</p>
         </div>
     </div>
     {% include "footer.html" %}

@@ -4,8 +4,12 @@
     {% include "header.html" %}
     <div class="container-fluid"> 
         <h2>Most redacted files <small>by {{sort}} area</small></h2>
+        <ul class="nav nav-pills totals">
+          <li role="presentation"><a href="/redactions/area/">By total area</a></li>
+          <li role="presentation"><a href="/redactions/area/?sort=average">By average area per page</a></li>
+        </ul>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <ul class="list-group">
                 {% for item in items %}
                     <li class="list-group-item">
