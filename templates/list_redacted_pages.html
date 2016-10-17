@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include "header.html" %}
+    <div class="container-fluid"> 
+        <h2>Most redacted pages <small>by {{sort}}</small></h2>
+        <ul class="nav nav-pills totals">
+          <li role="presentation"><a href="/redactions/pages/?sort=total">By total</a></li>
+          <li role="presentation"><a href="/redactions/pages/?sort=percentage">By percentage of page</a></li>
+        </ul>
+
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-group">
+                {% for page in pages %}
+                    <li class="list-group-item">
+                        {% if sort == 'total' %}
+                            <span class="badge">{{ '%0.2f' | format(page.redacted.percentage) }}% redacted</span>
+                            <span class="badge">{{ page.redacted.total }} redactions</span>
+                        {% else %}
+                            <span class="badge">{{ page.redacted.total }} redactions</span>
+                            <span class="badge">{{ '%0.2f' | format(page.redacted.percentage) }}% redacted</span>
+                        {% endif %}
+                    <a href="/items/{{page.identifier}}/pages/{{page.page}}/">{{page.series}}, {{page.control_symbol}}, p. {{page.page}}</a>
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+{% endblock %}

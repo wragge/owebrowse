@@ -25,10 +25,16 @@
           <li><a href="/redactions/">Poke around in a random sample of redactions</a></li>
           <li><a href="/redactions/browse/">Browse the complete set of redactions</a></li>
           <li><a href="/redactions/tags/art/">Enjoy our collection of redaction art</a></li>
-          <li>Examine the files with the most redactions: <a href="/redactions/total/">total</a> &middot; <a href="/redactions/total/?sort=average">average per page</a></li>
-          <li>And the files with the greatest area redacted: <a href="/redactions/area/">total</a> &middot; <a href="/redactions/area/?sort=average">average per page</a></li>
+          <li>Files with the most redactions: <a href="/redactions/total/">total</a> &middot; <a href="/redactions/total/?sort=average">average per page</a></li>
+          <li>Files with the greatest area redacted: <a href="/redactions/area/">total</a> &middot; <a href="/redactions/area/?sort=average">average per page</a></li>
+          <li>Pages with the most redactions: <a href="/redactions/pages/?sort=total">total</a> &middot; <a href="/redactions/pages/?sort=percentage">percentage of page</a></li>
 
         </ul>
+
+        <div class="alert alert-danger margintop">
+          <h4>Be warned!</h4>
+          <p>My technique for detecting redactions is far from perfect, so there will be errors!</p>
+        </div>
     </div>
     {% include "footer.html" %}
 {% endblock %}
