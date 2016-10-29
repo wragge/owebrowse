@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include "header.html" %}
+    <div class="container-fluid"> 
+        <h2>Most redacted pages <small>by {{sort}}</small></h2>
+        <ul class="nav nav-pills totals">
+          <li role="presentation"><a href="/redactions/pages/?sort=total">By total</a></li>
+          <li role="presentation"><a href="/redactions/pages/?sort=percentage">By percentage of page</a></li>
+        </ul>
+
+        <div class="images">
+            {% for image in pages %}
+
+            <a title="NAA: {{image.series}}, {{image.control_symbol}}, p. {{image.page}}" class="image-cell text-center" href="/items/{{image.identifier}}/pages/{{image.page}}"><img class="img-responsive" src="http://asiofiles.s3.amazonaws.com/{{image.series|replace('/','-')|urlencode}}/{{image.control_symbol|replace('/','-')|urlencode}}-%5B{{image.identifier}}%5D/thumbs/{{image.identifier}}-p{{image.page}}-200.jpg"><br>{% if sort == 'total' %}<span class="badge">{{ image.redacted.total }} redactions</span>{% else %}<span class="badge">{{ '%0.2f' | format(image.redacted.percentage) }}% redacted</span>{% endif %}</a>
+
+            {% endfor %}
+        </div>
+    </div>
+    {% include "footer.html" %}
+{% endblock %}
+
+{% block extrascripts %}
+    <script src="/static/js/isotope.pkgd.min.js"></script>
+    <script src="/static/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/static/js/script.js"></script>
+{% endblock %}

@@ -247,8 +247,8 @@ def item_redactions(barcode):
 def highest_per_page():
     sort = request.args.get('sort', 'total')
     db = get_db()
-    pages = db.images.find({'redacted': {'$exists': True}}).sort('redacted.' + sort, -1).limit(50)
-    return render_template('list_redacted_pages.html', pages=pages, sort=sort)
+    pages = db.images.find({'redacted': {'$exists': True}}).sort('redacted.' + sort, -1).limit(100)
+    return render_template('show_redacted_pages.html', pages=pages, sort=sort)
 
 
 if __name__ == '__main__':
