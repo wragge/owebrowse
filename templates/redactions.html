@@ -7,9 +7,10 @@
                 <h1>redacted:</h1>
                 <p>acts of erasure, censorship, and control extracted from <a href="https://github.com/wragge/asio-files" class="redacted">ASIO files</a> held by the <a href="http://naa.gov.au" class="redacted">National Archives of Australia</a></p>
                 <p>here voids become <a href="http://timsherratt.org/research-notebook/projects/immigration-recordkeeping-and-surveillance/" class="redacted">windows</a> on the practice of state surveillance</p>
+                {% if tag == 'art' %}<small class="text-muted">the full <a class="redacted" href="https://wragge.github.io/diy-redactionart/">#redactionart</a> story...</small>{% endif %}
                 {% if page %}
                     <div class="pull-right">
-                        <small class="text-muted">{% if total > (page * number) %}{{((page - 1) * number) + 1}} to {{page * number}} of {% endif %}{{total}}{% if tag %} tagged &lsquo;{{tag}}&rsquo;{% endif %}</small> 
+                        <small class="text-muted">{% if total > (page * number) %}{{((page - 1) * number) + 1}} to {{page * number}} of {% endif %}{{total}}{% if tag %} tagged &lsquo;{{tag}}&rsquo;{% endif %}</small>
                         {% if page > 1 %}
                             <a class="text-muted" href="/redactions/browse/{{page - 1}}/" class="next"><i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i></a>
                         {% endif %}
