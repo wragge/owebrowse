@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from bson.son import SON
-from flask_paginate import Pagination
+# from flask_paginate import Pagination
 import random
 
 
@@ -40,7 +40,7 @@ def list_series():
     ]
     db = get_db()
     series = list(db.items.aggregate(pipeline))
-    print series
+    print(series)
     return render_template('list_series.html', series=series)
 
 
@@ -120,7 +120,7 @@ def show_page(identifier, page):
 @app.route('/browse/')
 def browse():
     series = request.args.get('series', None)
-    print series
+    print(series)
     if not series:
         return redirect(url_for('list_series'))
     else:
